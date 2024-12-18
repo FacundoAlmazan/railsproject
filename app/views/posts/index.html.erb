@@ -1,0 +1,19 @@
+<% content_for :title, "Posts" %>
+
+<div class="flex-row">
+  <p data-controller="alert" data-alert-target="alert" class="text-green-700 p-4 absolute top-5 left-5"><%= notice %></p>
+  <div>
+    <h1 class="text-rose-900 text-3xl">Posts</h1>
+    <div id="posts" class="m-5 flex-row w-3/4">
+      <% @posts.each do |post| %>
+          <div class= "border-black border-2 mb-5" >
+            <%= render post %>
+            <p class=" bg-slate-1 border-t-black border-2 text-center font-semibold">
+              <%= link_to "Show this post", post_path(post) %>
+            </p>
+          </div>
+      <% end %>
+    </div>
+    <%= link_to "New post", new_post_path %>
+  </div> 
+</div>
