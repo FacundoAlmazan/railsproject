@@ -4,16 +4,15 @@
   <p data-controller="alert" data-alert-target="alert" class="text-green-700 p-4 absolute top-5 left-5"><%= notice %></p>
   <div>
     <h1 class="text-rose-900 text-3xl">Posts</h1>
-    <div id="posts" class="m-5 flex-row w-3/4">
+    <div id="posts" class="ml-5 mt-5">
       <% @posts.each do |post| %>
-          <div class= "border-black border-2 mb-5" >
             <%= render post %>
-            <p class=" bg-slate-1 border-t-black border-2 text-center font-semibold">
+            <p class=" bg-slate-1 border-black border-b-2 border-l-2 border-r-2 text-center font-semibold w-3/4">
               <%= link_to "Show this post", post_path(post) %>
             </p>
-          </div>
       <% end %>
     </div>
     <%= link_to "New post", new_post_path %>
+    <%= link_to "primer post xd", first_posts_path %>
   </div> 
 </div>

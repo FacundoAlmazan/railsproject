@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  #before_action :set_post, except: %i[index new create first]
+  before_action :set_post, only: %i[show edit update destroy]
 
   # GET /posts or /posts.json
   def index
@@ -55,6 +56,10 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_path, status: :see_other, notice: "Post was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def first
+    @first = Post.first
   end
 
   private

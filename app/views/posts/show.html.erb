@@ -2,9 +2,8 @@
 
 <%= render @post %>
 
-<div>
-  <%= link_to "Edit this post", edit_post_path(@post) %> |
-  <%= link_to "Back to posts", posts_path %>
-
-  <%= button_to "Destroy this post", @post, method: :delete %>
+<div class=" bg-slate-1 border-black border-b-2 border-l-2 border-r-2 text-center font-semibold w-3/4 flex-col-reverse">
+  <p class="border-black border-b-2"><%= link_to "Edit this post", edit_post_path(@post) %></p>
+  <p class="border-black border-b-2"><%= link_to "Back to posts", posts_path %></p>
+  <p><%= button_to "Destroy this post", @post, method: :delete %></p>
 </div>

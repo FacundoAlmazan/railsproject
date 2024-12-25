@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="overflow-y-scroll">
   <head>
     <title><%= content_for(:title) || "Pruby" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -23,12 +23,21 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+  <body class="flex flex-col min-h-screen">
+
+    <header class="bg-white shadow-md">
+      <div class="container mx-auto flex items-center py-4">
+      <%= link_to image_tag('avivas.png', alt: 'AVIVAS logo', class: 'h-12 w-auto max-w-xs relative'), posts_path %>
+      </div>
+    </header>
+    
+    <main class="container mx-auto mt-8 px-6 flex-1">
+        <%= yield %>
     </main>
-    <footer class="absolute bottom-1">
+
+    <footer class="m-2">
       <p>© Avivas 2024</p>
     </footer>
+    
   </body>
 </html>
