@@ -1,4 +1,4 @@
-<%= form_with(model: post) do |form| %>
+<%= form_with(model: post, local: true, id: "post-form", data: { controller: "newpost"}) do |form| %>
   <% if post.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -13,15 +13,17 @@
 
   <div>
     <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, id: "post-title", class: "border p-2 w-full", data: {newpost_target: "title"}%>
+    <p id="title-error" class="text-red-500 text-sm hidden" data-newpost-target="titleError"></p>
   </div>
 
   <div>
     <%= form.label :content, style: "display: block" %>
-    <%= form.textarea :content %>
+    <%= form.textarea :content, id: "post-content", class: "border p-2 w-full", data: {newpost_target: "content"}%>
+    <p id="content-error" class="text-red-500 text-sm hidden" data-newpost-target="contentError"></p>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Save Post", class: "bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"%>
   </div>
 <% end %>

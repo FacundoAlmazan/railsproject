@@ -1,18 +1,19 @@
 <% content_for :title, "Posts" %>
 
 <div class="flex-row">
-  <p data-controller="alert" data-alert-target="alert" class="text-green-700 p-4 absolute top-5 left-5"><%= notice %></p>
+  <p data-controller="alert" data-alert-target="alert" class="text-green-700 right-0 mr-10 absolute"><%= notice %></p>
   <div>
-    <h1 class="text-rose-900 text-3xl">Posts</h1>
+    <h1 class="text-3xl">Posts</h1>
     <div id="posts" class="ml-5 mt-5">
       <% @posts.each do |post| %>
-            <%= render post %>
-            <p class=" bg-slate-1 border-black border-b-2 border-l-2 border-r-2 text-center font-semibold w-3/4">
-              <%= link_to "Show this post", post_path(post) %>
-            </p>
+            <div class=" bg-slate-1 shadow-2xl bg-white">
+              <%= render post %>
+              <p class= "shadow-mg ml-5 pb-5 font-semibold"><%= link_to "Show this post", post_path(post) %></p>
+            </div>
       <% end %>
+    <div class="mt-10">
+      <%= link_to "New post", new_post_path, class: "font-semibold bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded inline-block text-center" %>
+      <%= link_to "primer post xd", first_posts_path, class: "ml-5 font-semibold bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded inline-block text-center" %>
     </div>
-    <%= link_to "New post", new_post_path %>
-    <%= link_to "primer post xd", first_posts_path %>
   </div> 
 </div>
