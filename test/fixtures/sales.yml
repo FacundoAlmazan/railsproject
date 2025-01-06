@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sale_date: 2025-01-06 15:12:49
+  total_price: 9.99
+  user: one
+  client_name: MyString
+
+two:
+  sale_date: 2025-01-06 15:12:49
+  total_price: 9.99
+  user: two
+  client_name: MyString

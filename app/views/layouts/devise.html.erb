@@ -24,34 +24,24 @@
   </head>
 
   <body class="flex flex-col min-h-screen bg-sky-100">
+     
+    <% if notice.present? %>
+    <p class="right-0 bottom-0 m-5 absolute bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded inline-block text-center" 
+    data-controller="alert" data-alert-target="alert">
+    <%= notice %>
+    </p>
+    <% end %>
 
-    <header class="bg-white shadow-md">
-      <div class="container mx-auto flex items-center py-4">
-      <%= link_to image_tag('avivas.png', alt: 'AVIVAS logo', class: 'h-12 w-auto max-w-xs relative'), posts_path %>
-      </div>
-    </header>
-
-    <main class="container mx-auto mt-8 px-6 flex-1">
-      <% if notice.present? %>
-      <p class="right-0 bottom-0 m-10 absolute bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded inline-block text-center" 
+    <% if alert.present? %>
+    <p class="right-0 bottom-0 m-5 absolute bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded inline-block text-center" 
         data-controller="alert" data-alert-target="alert">
-        <%= notice %>
-      </p>
-      <% end %>
+        <%= alert %>
+    </p>
+    <% end %>
 
-      <% if alert.present? %>
-        <p class="right-0 bottom-0 m-10 absolute bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded inline-block text-center" 
-          data-controller="alert" data-alert-target="alert">
-          <%= alert %>
-        </p>
-      <% end %>
-      
-      <%= yield %>
+    <main class="container mx-auto flex-1">
+        <%= yield %>
     </main>
-
-    <footer class="m-2">
-      <p>© Avivas 2024</p>
-    </footer>
     
   </body>
 </html>

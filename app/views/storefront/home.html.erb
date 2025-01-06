@@ -1,0 +1,10 @@
+<h1>Bienvenido a nuestra tienda</h1>
+<div class="grid grid-cols-3 gap-4">
+  <% @products.each do |product| %>
+    <div class="border p-4">
+      <h2><%= product.name %></h2>
+      <p><%= number_to_currency(product.price) %></p>
+      <%= link_to 'Ver detalles', product_path(product), class: 'text-blue-500' %>
+    </div>
+  <% end %>
+</div>

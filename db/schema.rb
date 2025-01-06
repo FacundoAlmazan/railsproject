@@ -10,12 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_27_052735) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_06_181301) do
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.decimal "price"
+    t.integer "stock"
+    t.string "category"
+    t.string "size"
+    t.string "color"
+    t.datetime "deactivated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.datetime "sale_date"
+    t.decimal "total_price"
+    t.integer "user_id", null: false
+    t.string "client_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_sales_on_user_id"
+  end
+
+  create_table "sold_products", force: :cascade do |t|
+    t.integer "sale_id", null: false
+    t.integer "product_id", null: false
+    t.integer "quantity"
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_sold_products_on_product_id"
+    t.index ["sale_id"], name: "index_sold_products_on_sale_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -30,4 +64,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_27_052735) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "sales", "users"
+  add_foreign_key "sold_products", "products"
+  add_foreign_key "sold_products", "sales"
 end

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Panel de Administración - Avivas</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body>
+    <header class="bg-gray-800 text-white p-4">
+      <h1>Panel de Administración</h1>
+      <nav>
+        <%= link_to 'Dashboard', admin_root_path, class: 'text-blue-300' %> |
+        <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class: 'text-blue-300' %>
+      </nav>
+    </header>
+    <main class="container mx-auto mt-8">
+      <%= yield %>
+    </main>
+  </body>
+</html>
