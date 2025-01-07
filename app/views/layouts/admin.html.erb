@@ -2,20 +2,39 @@
 <html>
   <head>
     <title>Panel de Administración - Avivas</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body>
+  <body class="flex flex-col min-h-screen"> 
     <header class="bg-gray-800 text-white p-4">
-      <h1>Panel de Administración</h1>
-      <nav>
-        <%= link_to 'Dashboard', admin_root_path, class: 'text-blue-300' %> |
-        <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class: 'text-blue-300' %>
-      </nav>
+      <div class="container mx-auto flex items-center py-4">
+        <%= link_to image_tag('avivasblue.png', alt: 'AVIVAS logo', class: 'h-16 w-auto max-w-xs relative'), admin_root_path %>
+        <h1 class= "font-bold text-2xl">Panel de Administración</h1>
+        <div class="absolute right-10">
+          <%= link_to 'Dashboard', admin_root_path, class: 'text-green-300 mr-5' %>
+          <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "text-red-300 mr-5" %>
+        </div>
+      </div>
     </header>
-    <main class="container mx-auto mt-8">
+    <main class="container mx-auto mt-8 px-6 flex-1">
+      <%= render 'shared/alerts' %>
       <%= yield %>
     </main>
   </body>
