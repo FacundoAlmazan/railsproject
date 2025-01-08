@@ -2,7 +2,7 @@ class Admin::DashboardController < ApplicationController
     before_action :authenticate_user! # Protege todas las rutas de administración con autenticación
     before_action :authorize_admin    # Valida el rol del usuario
   
-    layout "admin" # Especifica que se usará el layout admin
+    layout "admin" # Especifica que se usará el layout de administración
   
     private
   

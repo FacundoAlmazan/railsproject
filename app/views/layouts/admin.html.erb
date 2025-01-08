@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Panel de Administración - Avivas</title>
+    <title><%= content_for(:title) || "Administración" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -23,10 +23,10 @@
     <%= javascript_importmap_tags %>
   </head>
   <body class="flex flex-col min-h-screen"> 
-    <header class="bg-gray-800 text-white p-4">
-      <div class="container mx-auto flex items-center py-4">
-        <%= link_to image_tag('avivasblue.png', alt: 'AVIVAS logo', class: 'h-16 w-auto max-w-xs relative'), admin_root_path %>
-        <h1 class= "font-bold text-2xl">Panel de Administración</h1>
+    <header class="bg-gray-800 text-white pb-4 h-22">
+      <div class="container mx-auto flex items-center">
+        <%= link_to image_tag('avivasblue.png', alt: 'AVIVAS logo', class: 'h-20'), admin_root_path %>
+        <h1 class= "font-bold text-2xl">Avivas Administration</h1>
         <div class="absolute right-10">
           <%= link_to 'Dashboard', admin_root_path, class: 'text-green-300 mr-5' %>
           <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "text-red-300 mr-5" %>

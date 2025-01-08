@@ -1,1 +1,16 @@
-<p>hola</p>
+<% content_for :title, "Products" %>
+
+<h1 class="text-3xl font-bold mb-6">Productos</h1>
+
+<div class="mb-6">
+  <%= link_to "Agregar producto", new_admin_product_path, 
+              class: "font-semibold bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded inline-block text-center"%>
+</div>
+
+<div id="products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+  <% @products.each do |product| %>
+    <%= render product %>
+  <% end %>
+</div>
+
+

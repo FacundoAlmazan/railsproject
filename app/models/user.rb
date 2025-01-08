@@ -1,9 +1,12 @@
 class User < ApplicationRecord
+  # Scope para usuarios activos
+  scope :active, -> { where(deactivated_at: nil) }
+
   # Devise modules
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # Enum para roles
+  #(por algún motivo los enum me tiran error...)
   #enum role: { admin: "admin", manager: "manager", employee: "employee" }
 
   # Validación
@@ -23,6 +26,14 @@ class User < ApplicationRecord
 
   def employee?
     role == "employee"
+  end
+
+  def deactivate!
+    update(deactivated_at: Time.current, password: SecureRandom.hex)
+  end
+
+  def active?
+    deactivated_at.nil?
   end
   
 end

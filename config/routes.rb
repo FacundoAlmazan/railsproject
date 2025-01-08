@@ -6,13 +6,17 @@ Rails.application.routes.draw do
 
   devise_for :users, skip: [:registrations]
 
+
   # Área de administración protegida
   namespace :admin do
-    resources :products  # CRUD de productos
+    resources :products do  # CRUD de productos
+        patch :change_stock, on: :member
+    end
     resources :users     # Gestión de usuarios (opcional)
     resources :sales    # Gestión de ventas
     root 'dashboard#index'  # Página principal del admin
   end
+
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

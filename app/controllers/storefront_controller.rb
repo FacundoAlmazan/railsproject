@@ -1,5 +1,5 @@
 class StorefrontController < ApplicationController
     def home
-      @products = Product.all
+      @products = Product.active
     end
   end
