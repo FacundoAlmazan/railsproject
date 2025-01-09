@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :products do  # CRUD de productos
         patch :change_stock, on: :member
+        resources :product_variants, only: [:new, :create, :edit, :update, :destroy]
     end
     resources :users     # Gestión de usuarios (opcional)
     resources :sales    # Gestión de ventas

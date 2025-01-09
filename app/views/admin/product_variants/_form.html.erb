@@ -1,0 +1,20 @@
+<%= form_with model: [:admin, product, product_variant], local: true do |form| %>
+  <div class="flex flex-col mb-4">
+    <%= form.label :size, "Talle", class: "font-semibold" %>
+    <%= form.text_field :size, class: "w-full border-gray-300 rounded-md" %>
+  </div>
+
+  <div class="flex flex-col mb-4">
+    <%= form.label :color, "Color", class: "font-semibold" %>
+    <%= form.text_field :color, class: "w-full border-gray-300 rounded-md" %>
+  </div>
+
+  <div class="flex flex-col mb-4">
+    <%= form.label :stock, "Stock", class: "font-semibold" %>
+    <%= form.number_field :stock, class: "w-full border-gray-300 rounded-md" %>
+  </div>
+
+  <div class="flex justify-end">
+    <%= form.submit "Guardar", class: "bg-blue-500 text-white px-4 py-2 rounded-md shadow" %>
+  </div>
+<% end %>

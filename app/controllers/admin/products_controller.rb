@@ -17,6 +17,7 @@ class Admin::ProductsController < Admin::DashboardController
 
   def new
     @product = Product.new
+    @product.product_variants.build # Inicializa una variante vacía
   end
 
   def create
@@ -70,7 +71,7 @@ class Admin::ProductsController < Admin::DashboardController
 
   private
   def product_params
-    params.require(:product).permit(:name, :price, :stock, :description, :category, :color, :size, :image, :remove_image)
+    params.require(:product).permit(:name, :price, :stock, :description, :category, :color, :size, :image, :remove_image, product_variants_attributes: [:id, :size, :color, :stock, :_destroy])
   end
 
 end

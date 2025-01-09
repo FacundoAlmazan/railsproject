@@ -3,6 +3,10 @@ class Product < ApplicationRecord
 
     has_many :sold_products
     has_many :sales, through: :sold_products
+
+    has_many :product_variants, dependent: :destroy
+    accepts_nested_attributes_for :product_variants, allow_destroy: true
+
     belongs_to :category, optional: true
 
     has_one_attached :image

@@ -28,11 +28,11 @@
         <%= link_to image_tag('avivasblue.png', alt: 'AVIVAS logo', class: 'h-12 w-auto'), admin_root_path %>
         <h1 class= "font-bold text-2xl">Panel de Administración</h1>
         <div class="absolute right-10">
-          <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "font-bold text-[2.5rem] mr-5" %>
+          <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "font-bold text-m mr-5" %>
         </div>
       </div>
     </header>
-    <main class="container mx-auto mt-8 px-6 flex-1">
+    <main class="mt-8 px-6 flex-1">
       <%= render 'shared/alerts' %>
       <%= yield %>
       <br>
