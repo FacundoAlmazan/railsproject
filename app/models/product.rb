@@ -3,6 +3,7 @@ class Product < ApplicationRecord
 
     has_many :sold_products
     has_many :sales, through: :sold_products
+    belongs_to :category, optional: true
 
     has_one_attached :image
     
@@ -19,4 +20,8 @@ class Product < ApplicationRecord
         deactivated_at.nil?
     end
       
+    def self.ransackable_attributes(auth_object = nil)
+        ["category", "color", "created_at", "deactivated_at", "description", "id", "name", "price", "size", "stock", "updated_at"]
+    end
+    
 end

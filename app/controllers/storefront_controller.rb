@@ -1,5 +1,11 @@
 class StorefrontController < ApplicationController
+
+    def index
+      @q = Product.active.ransack(params[:q])
+      @products = @q.result(distinct: true)
+    end
     def home
-      @products = Product.active
+      @q = Product.active.ransack(params[:q])
+      @products = @q.result(distinct: true)
     end
   end

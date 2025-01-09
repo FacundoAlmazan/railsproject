@@ -43,6 +43,12 @@ Rails.application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
+  # Asegura que los assets no se precompilen en desarrollo.
+  config.assets.debug = true
+
+  # Evita que Rails dependa de assets precompilados en desarrollo.
+  config.assets.check_precompiled_asset = false
+
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 

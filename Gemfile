@@ -67,3 +67,5 @@ gem "tailwindcss-rails", "~> 3.0"
 gem "devise"
 
 gem 'activerecord', '8.0.1'
+
+gem 'ransack'

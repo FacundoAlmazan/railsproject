@@ -23,13 +23,12 @@
     <%= javascript_importmap_tags %>
   </head>
   <body class="flex flex-col min-h-screen"> 
-    <header class="bg-gray-800 text-white pb-4 h-22">
-      <div class="container mx-auto flex items-center">
-        <%= link_to image_tag('avivasblue.png', alt: 'AVIVAS logo', class: 'h-20'), admin_root_path %>
-        <h1 class= "font-bold text-2xl">Avivas Administration</h1>
+    <header class="bg-gray-800 text-white p-4">
+      <div class="flex items-center py-4">
+        <%= link_to image_tag('avivasblue.png', alt: 'AVIVAS logo', class: 'h-16 w-auto'), admin_root_path %>
+        <h1 class= "font-bold text-2xl">Panel de Administración</h1>
         <div class="absolute right-10">
-          <%= link_to 'Dashboard', admin_root_path, class: 'text-green-300 mr-5' %>
-          <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "text-red-300 mr-5" %>
+          <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "font-bold text-[2.5rem] mr-5" %>
         </div>
       </div>
     </header>

@@ -2,8 +2,14 @@ class Admin::ProductsController < Admin::DashboardController
 
   before_action :set_product, only: [:edit, :update, :destroy]
 
+  #def index
+  # @products = Product.active
+  #end
+
   def index
-    @products = Product.active
+    # Solo obtenemos los productos activos
+    @q = Product.active.ransack(params[:q])
+    @products = @q.result(distinct: true)
   end
 
   def show

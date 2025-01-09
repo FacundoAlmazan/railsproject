@@ -1,20 +1,15 @@
 <h1 class="text-4xl mb-10 font-light">Bienvenido a nuestra tienda</h1>
 
+<%= search_form_for @q, url: storefront_home_path, method: :get, class: "mb-6" do |f| %>
+  <%= f.label :name_cont, "Buscar producto por nombre:", class: "block font-semibold mb-2" %>
+  <%= f.text_field :name_cont, class: "border rounded px-4 py-2 w-full mb-4" %>
+  <%= f.submit "Buscar", class: "bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded" %>
+  
+<% end %>
+
 
 <div id="products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
   <% @products.each do |product| %>
-    <div class="bg-white shadow-lg rounded-lg overflow-hidden border">
-      <% if product.image.attached? %>
-        <%= image_tag product.image, class: "w-full h-72 object-cover" %>
-      <% else %>
-        <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
-          <span>No image available</span>
-        </div>
-      <% end %>
-      <div class="p-4">
-        <p class="text-gray-800 font-semibold text-lg mb-2 truncate"><%= product.name %></p>
-        <p><%= number_to_currency(product.price) %></p>
-      </div>
-    </div>
+    <%= render 'shared/product', product: product %>
   <% end %>
 </div>
