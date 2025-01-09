@@ -6,6 +6,19 @@ class Product < ApplicationRecord
     belongs_to :category, optional: true
 
     has_one_attached :image
+
+    # Atributo virtual para el checkbox
+    attr_accessor :remove_image
+
+    # Callback para eliminar la imagen si el checkbox está marcado
+    before_save :purge_image_if_requested
+
+    private
+
+    def purge_image_if_requested
+        puts "Remove Image: #{remove_image}" # Verifica el valor
+        image.purge if ActiveModel::Type::Boolean.new.cast(remove_image)
+    end
     
     validates :name, presence: true, length: { maximum: 255 }
     validates :description, presence: true

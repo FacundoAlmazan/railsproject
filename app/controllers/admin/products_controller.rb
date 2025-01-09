@@ -70,7 +70,7 @@ class Admin::ProductsController < Admin::DashboardController
 
   private
   def product_params
-    params.require(:product).permit(:name, :price, :stock, :description, :category, :color, :size, :image)
+    params.require(:product).permit(:name, :price, :stock, :description, :category, :color, :size, :image, :remove_image)
   end
 
 end

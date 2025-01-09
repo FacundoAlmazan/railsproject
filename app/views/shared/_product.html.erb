@@ -2,7 +2,7 @@
   <% if product.image.attached? %>
     <%= image_tag product.image, class: "w-full h-72 object-cover" %>
   <% else %>
-    <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500">
+    <div class="w-full h-72 bg-stone-200 flex items-center justify-center text-gray-500">
       <span>No image available</span>
     </div>
   <% end %>
