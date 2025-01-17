@@ -42,7 +42,7 @@ class Admin::ProductsController < Admin::DashboardController
   end
 
   #def destroy
-  #  @product.update(deactivated_at: Time.current, stock: 0)
+  #  @product.update(deactivated_at: Time.current)
   #  redirect_to admin_products_path, notice: "Producto eliminado exitosamente."
   #end
 
@@ -54,13 +54,6 @@ class Admin::ProductsController < Admin::DashboardController
     end
   end
 
-  def change_stock
-    if @product.update(stock: params[:stock])
-      redirect_to admin_products_path, notice: "Stock actualizado exitosamente."
-    else
-      redirect_to admin_products_path, alert: "No se pudo actualizar el stock."
-    end
-  end
 
   private
 
@@ -71,7 +64,7 @@ class Admin::ProductsController < Admin::DashboardController
 
   private
   def product_params
-    params.require(:product).permit(:name, :price, :stock, :description, :category, :color, :size, :image, :remove_image, product_variants_attributes: [:id, :size, :color, :stock, :_destroy])
+    params.require(:product).permit(:name, :price, :description, :category_id, :color, :size, :image, :remove_image, product_variants_attributes: [:id, :size, :color, :stock, :_destroy])
   end
 
 end

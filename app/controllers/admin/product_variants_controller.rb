@@ -3,7 +3,7 @@ class Admin::ProductVariantsController < Admin::DashboardController
     before_action :set_product_variant, only: [:edit, :update, :destroy]
 
     def new
-        @product = Product.find(params[:product_id]) # Verifica que esto se está ejecutando correctamente
+        @product = Product.find(params[:product_id])
         @product_variant = @product.product_variants.build
     end
 

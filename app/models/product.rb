@@ -7,7 +7,7 @@ class Product < ApplicationRecord
     has_many :product_variants, dependent: :destroy
     accepts_nested_attributes_for :product_variants, allow_destroy: true
 
-    belongs_to :category, optional: true
+    belongs_to :category
 
     has_one_attached :image
 
@@ -16,6 +16,14 @@ class Product < ApplicationRecord
 
     # Callback para eliminar la imagen si el checkbox está marcado
     before_save :purge_image_if_requested
+
+    def stock
+        product_variants.sum(:stock)
+    end
+
+    def deactivate!
+        update(deactivated_at: Time.current)
+    end
 
     private
 
@@ -27,11 +35,6 @@ class Product < ApplicationRecord
     validates :name, presence: true, length: { maximum: 255 }
     validates :description, presence: true
     validates :price, presence:true, numericality: { greater_than_or_equal_to: 0 }
-    validates :stock, presence:true, numericality: { greater_than_or_equal_to: 0, only_integer: true }
-
-    def deactivate!
-        update(deactivated_at: Time.current, stock: 0)
-    end
 
     def active?
         deactivated_at.nil?
