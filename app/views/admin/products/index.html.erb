@@ -1,10 +1,7 @@
 <div class='flex'>
   <h1 class="text-3xl font-bold mb-6">Modelos</h1>
 
-  <div class="ml-8">
-    <%= link_to "Agregar", new_admin_product_path, 
-                class: "bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded inline-block"%>
-  </div>
+
 </div>
 <%= search_form_for @q, url: admin_products_path, method: :get, class: "mb-6" do |f| %>
   <%= f.label :name_cont, "Buscar modelo por nombre:", class: "block font-semibold mb-2" %>
@@ -14,8 +11,9 @@
   </div>
 <% end %>
 
+<%= link_to "Agregar modelo", new_admin_product_path, class: "bg-green-600 hover:bg-green-500 text-white py-2 px-4 rounded"%>
 
-<div id="products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+<div id="products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-10">
   <% @products.each do |product| %>
     <%= render 'shared/product', product: product, admin: true %>
   <% end %>
