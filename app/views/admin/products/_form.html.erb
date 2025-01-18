@@ -1,75 +1,73 @@
-<div class="flex items-center justify-center">
+<div class="flex items-center justify-center mt-6">
   <div class="<%= product.persisted? ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : 'flex justify-center' %> w-full max-w-6xl">
     
     <!-- Formulario del producto -->
-    <div class="<%= product.persisted? ? 'md:w-full' : 'md:w-4/5' %> w-full min-w-[300px] flex flex-col justify-between h-full max-h-[82vh]">
-      <%= form_with model: product, url: [:admin, product], local: true, class: "p-8 shadow-2xl border rounded-lg bg-stone-100 h-full flex flex-col" do |form| %>
-          <h1 class="text-2xl font-bold m-3 text-gray-800"><%= product.persisted? ? 'Editar' : 'Nuevo' %> modelo</h1>
-          <div class="flex-1 ">
-          <!-- Campo Imagen -->
-          <div class="relative w-full h-72 border border-gray-300 rounded-md bg-gray-100 overflow-hidden mt-7">
-            <% if product.image.attached? && product.persisted? %>
-              <%= image_tag product.image, class: "absolute inset-0 w-full h-full object-cover" %>
-              <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white flex justify-between items-center p-2 z-20">
-                <span class="text-sm">Imagen actual</span>
-                <button type="button" class="cursor-pointer text-sm font-bold hover:underline" onclick="document.getElementById('remove-image').click()">Eliminar</button>
-                <%= form.check_box :remove_image, id: "remove-image", class: "hidden" %>
-              </div>
-            <% else %>
-              <span class="absolute inset-0 flex items-center justify-center text-gray-500">No image available</span>
-            <% end %>
-            <label class="absolute inset-0 w-full h-full bg-transparent cursor-pointer flex items-center justify-center hover:bg-blue-300 hover:bg-opacity-50 z-10">
-              <%= form.file_field :image, class: "hidden" %>
-            </label>
-          </div>
+    <div class="<%= product.persisted? ? 'md:w-full' : 'w-full md:w-1/2' %> min-w-[300px]">
+      <%= form_with model: product, url: [:admin, product], local: true, class: "p-8 shadow-2xl border rounded-lg bg-white h-full" do |form| %>
+        <h1 class="text-2xl font-bold m-3 text-gray-800"><%= product.persisted? ? 'Editar' : 'Nuevo' %> modelo</h1>
 
-          <!-- Demás campos -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 ">
-            <div>
-              <%= form.label :name, "Nombre", class: "block text-lg font-semibold mb-2" %>
-              <%= form.text_field :name, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
+        <!-- Campo Imagen -->
+        <div class="relative w-full h-72 border border-gray-300 rounded-md bg-gray-100 overflow-hidden mt-5">
+          <% if product.image.attached? && product.persisted? %>
+            <%= image_tag product.image, class: "absolute inset-0 w-full h-full object-cover" %>
+            <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white flex justify-between items-center p-2 z-20">
+              <span class="text-sm">Imagen actual</span>
+              <button type="button" class="cursor-pointer text-sm font-bold hover:underline" onclick="document.getElementById('remove-image').click()">Eliminar</button>
+              <%= form.check_box :remove_image, id: "remove-image", class: "hidden" %>
             </div>
-            <div>
-              <%= form.label :category_id, "Categoría", class: "block text-lg font-semibold mb-2" %>
-              <%= form.collection_select :category_id, Category.all, :id, :name, { prompt: "Seleccionar" }, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
-            </div>
-            <div>
-              <%= form.label :description, "Descripción", class: "block text-lg font-semibold mb-2" %>
-              <%= form.text_area :description, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
-            </div>
-            <div>
-              <%= form.label :price, "Precio", class: "block text-lg font-semibold mb-2" %>
-              <%= form.number_field :price, step: 0.01, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
-            </div>
+          <% else %>
+            <span class="absolute inset-0 flex items-center justify-center text-gray-500">No image available</span>
+          <% end %>
+          <label class="absolute inset-0 w-full h-full bg-transparent cursor-pointer flex items-center justify-center hover:bg-blue-300 hover:bg-opacity-50 z-10">
+            <%= form.file_field :image, class: "hidden" %>
+          </label>
+        </div>
+
+        <!-- Campos del formulario -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div>
+            <%= form.label :name, "Nombre", class: "block text-lg font-semibold mb-2" %>
+            <%= form.text_field :name, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
+          </div>
+          <div>
+            <%= form.label :category_id, "Categoría", class: "block text-lg font-semibold mb-2" %>
+            <%= form.collection_select :category_id, Category.all, :id, :name, { prompt: "Seleccionar" }, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
+          </div>
+          <div>
+            <%= form.label :description, "Descripción", class: "block text-lg font-semibold mb-2" %>
+            <%= form.text_area :description, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
+          </div>
+          <div>
+            <%= form.label :price, "Precio", class: "block text-lg font-semibold mb-2" %>
+            <%= form.number_field :price, step: 0.01, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
           </div>
         </div>
 
-        <!-- Botón submit -->
-        <div class="text-center mt-6">
-          <%= form.submit "Guardar", class: "bg-blue-600 hover:bg-blue-500 cursor-pointer text-white font-bold py-2 px-4 rounded-lg shadow-md" %>
+        <div class="mt-20 text-center">
+          <%= form.submit "Guardar", class: " bg-blue-600 hover:bg-blue-500 cursor-pointer text-white font-bold py-2 px-4 rounded-lg shadow-md" %>
         </div>
       <% end %>
     </div>
 
     <% if product.persisted? %>
       <!-- Lista de variantes -->
-      <div class="flex flex-col justify-between max-h-[82vh] md:w-full min-w-[300px] border rounded-lg shadow-2xl bg-stone-100 pt-5">
-        <h2 class="text-2xl py-5 text-center">Editar variantes</h2>
+      <div class="flex flex-col justify-between md:w-full min-w-[300px] border rounded-lg shadow-2xl bg-stone-100">
+        <h2 class="text-2xl pt-7 text-center ">Editar variantes</h2>
         <!-- Contenedor de variantes con scroll interno -->
-        <div class="flex-1 overflow-y-auto p-3">
-          <% product.product_variants.each do |variant| %>
-            <div class="flex items-center justify-between border-b pb-2 rounded-lg border-y-2 pt-2 mb-2 border-x-2 pl-4 bg-white">
-              <div class='truncate'>
-                <p class='truncate'><strong>Talle:</strong> <%= variant.size %></p>
-                <p class='truncate'><strong>Color:</strong> <%= variant.color %></p>
-                <p class='truncate'><strong>Stock:</strong> <%= variant.stock %></p>
+          <div class="overflow-y-auto px-3 max-h-[63vh] my-6">
+            <% product.product_variants.each do |variant| %>
+              <div class="flex items-center justify-between border-b pb-2 rounded-lg border-y-2 pt-2 mb-2 border-x-2 pl-4 bg-white">
+                <div class='truncate'>
+                  <p class='truncate'><strong>Talle:</strong> <%= variant.size %></p>
+                  <p class='truncate'><strong>Color / Distinción:</strong> <%= variant.color %></p>
+                  <p class='truncate'><strong>Stock:</strong> <%= variant.stock %></p>
+                </div>
+                <div class="flex space-x-2 ml-2 p-4 border-l-2">
+                  <%= link_to "Editar", edit_admin_product_product_variant_path(product, variant), class: "text-blue-500 hover:underline" %>
+                  <%= button_to "Eliminar", admin_product_product_variant_path(product_id: product.id, id: variant.id), method: :delete, data: { turbo_confirm: "¿Estás seguro de eliminar esta variante?" }, class: "text-red-500 hover:underline" %>
+                </div>
               </div>
-              <div class="flex space-x-2 ml-2 p-4 border-l-2">
-                <%= link_to "Editar", edit_admin_product_product_variant_path(product, variant), class: "text-blue-500 hover:underline" %>
-                <%= button_to "Eliminar", admin_product_product_variant_path(product_id: product.id, id: variant.id), method: :delete, data: { turbo_confirm: "¿Estás seguro de eliminar esta variante?" }, class: "text-red-500 hover:underline" %>
-              </div>
-            </div>
-          <% end %>
+            <% end %>
         </div>
         <%= link_to "Agregar variante", new_admin_product_product_variant_path(product), class: "rounded-lg text-center text-green-700 bg-green-100 font-bold hover:bg-green-200 px-4 py-2" %>
       </div>
