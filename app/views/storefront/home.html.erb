@@ -7,9 +7,12 @@
   
 <% end %>
 
-
 <div id="products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
   <% @products.each do |product| %>
     <%= render 'shared/product', product: product %>
   <% end %>
+</div>
+
+<div class="pagination">
+  <%= will_paginate @products %>
 </div>

@@ -7,9 +7,11 @@ class Admin::ProductsController < Admin::DashboardController
   #end
 
   def index
-    # Solo obtenemos los productos activos
+    # Inicializamos Ransack para los productos activos
     @q = Product.active.ransack(params[:q])
-    @products = @q.result(distinct: true)
+    
+    # Aplicamos paginación al resultado de Ransack
+    @products = @q.result(distinct: true).paginate(page: params[:page], per_page: 16) # Cambia '10' al número de elementos por página que prefieras
   end
 
   def show
