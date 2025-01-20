@@ -1,9 +1,6 @@
 class Product < ApplicationRecord
     scope :active, -> { where(deactivated_at: nil) }
 
-    has_many :sold_products
-    has_many :sales, through: :sold_products
-
     has_many :product_variants, dependent: :destroy
     accepts_nested_attributes_for :product_variants, allow_destroy: true
 

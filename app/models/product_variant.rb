@@ -1,5 +1,7 @@
 class ProductVariant < ApplicationRecord
   belongs_to :product
+  has_many :sold_products, dependent: :nullify
+  has_many :sales, through: :sold_products
 
   validates :size, presence: true
   validates :color, presence: true

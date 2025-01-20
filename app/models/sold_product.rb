@@ -1,6 +1,6 @@
 class SoldProduct < ApplicationRecord
   belongs_to :sale
-  belongs_to :product
+  belongs_to :product_variant
   
   validates :quantity, :price, presence: true
 
