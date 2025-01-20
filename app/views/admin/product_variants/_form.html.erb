@@ -1,23 +1,23 @@
-<div class="flex justify-center w-full">
+<div class="flex justify-center w-full mt-14">
   <%= form_with model: [:admin, product, product_variant], local: true, class:"p-8 shadow-2xl border rounded-lg bg-white h-full" do |form| %>
-    <h1 class="text-2xl my-5 pb-5">Editar Variante</h1>
+    <h1 class="text-2xl font-semibold mb-7"><%= product_variant.persisted? ? 'Editar' : 'Agregar' %> variante</h1>
     <div class="flex flex-col mb-4">
       <%= form.label :size, "Talle", class: "font-semibold" %>
-      <%= form.text_field :size, class: "w-full border-gray-300 rounded-md" %>
+      <%= form.text_field :size, required:true, class: "w-full border-gray-300 rounded-md" %>
     </div>
 
     <div class="flex flex-col mb-4">
       <%= form.label :color, "Color", class: "font-semibold" %>
-      <%= form.text_field :color, class: "w-full border-gray-300 rounded-md" %>
+      <%= form.text_field :color, required:true, class: "w-full border-gray-300 rounded-md" %>
     </div>
 
     <div class="flex flex-col mb-4">
       <%= form.label :stock, "Stock", class: "font-semibold" %>
-      <%= form.number_field :stock, class: "w-full border-gray-300 rounded-md" %>
+      <%= form.number_field :stock, required:true, class: "w-full border-gray-300 rounded-md" %>
     </div>
 
-    <div class="flex mt-5 text-center">
-      <%= form.submit "Guardar", class: "bg-blue-500 text-white px-4 py-2 rounded-md shadow" %>
+    <div class="flex mt-5">
+      <%= form.submit "Guardar", class: "hover:bg-blue-600 cursor-pointer font-bold bg-blue-500 text-white px-4 py-2 rounded-md shadow" %>
     </div>
   <% end %>
 </div>

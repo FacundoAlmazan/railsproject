@@ -27,24 +27,33 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <div>
             <%= form.label :name, "Nombre", class: "block text-lg font-semibold mb-2" %>
-            <%= form.text_field :name, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
+            <%= form.text_field :name, required: true, minlength: 3, maxlength: 30, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
           </div>
           <div>
             <%= form.label :category_id, "Categoría", class: "block text-lg font-semibold mb-2" %>
-            <%= form.collection_select :category_id, Category.all, :id, :name, { prompt: "Seleccionar" }, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
+            <%= form.collection_select :category_id, Category.all, :id, :name, { prompt: "Seleccionar" }, required: true, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
           </div>
           <div>
             <%= form.label :description, "Descripción", class: "block text-lg font-semibold mb-2" %>
-            <%= form.text_area :description, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
+            <%= form.text_area :description, required: true, minlength: 12, maxlength: 60, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
           </div>
           <div>
             <%= form.label :price, "Precio", class: "block text-lg font-semibold mb-2" %>
-            <%= form.number_field :price, step: 0.01, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
+            <%= form.number_field :price, step: 0.01, required:true, class: "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-400" %>
           </div>
         </div>
-
+        <% if product.errors.any? %>
+          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            <p><strong>Se encontraron los siguientes errores:</strong></p>
+            <ul>
+              <% product.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
         <div class="mt-20 text-center">
-          <%= form.submit "Guardar", class: " bg-blue-600 hover:bg-blue-500 cursor-pointer text-white font-bold py-2 px-4 rounded-lg shadow-md" %>
+          <%= form.submit "Guardar", class: " bg-blue-500 hover:bg-blue-600 cursor-pointer text-white font-bold py-2 px-4 rounded-lg shadow-md" %>
         </div>
       <% end %>
     </div>
@@ -54,12 +63,12 @@
       <div class="flex flex-col justify-between md:w-full min-w-[300px] border rounded-lg shadow-2xl bg-stone-100">
         <h2 class="text-2xl pt-7 text-center ">Editar variantes</h2>
         <!-- Contenedor de variantes con scroll interno -->
-          <div class="overflow-y-auto px-3 max-h-[63vh] my-6">
+          <div class="flex flex-col justify-start overflow-y-auto px-3 max-h-[63vh] my-6">
             <% product.product_variants.each do |variant| %>
               <div class="flex items-center justify-between border-b pb-2 rounded-lg border-y-2 pt-2 mb-2 border-x-2 pl-4 bg-white">
                 <div class='truncate'>
                   <p class='truncate'><strong>Talle:</strong> <%= variant.size %></p>
-                  <p class='truncate'><strong>Color / Distinción:</strong> <%= variant.color %></p>
+                  <p class='truncate'><strong>Color:</strong> <%= variant.color %></p>
                   <p class='truncate'><strong>Stock:</strong> <%= variant.stock %></p>
                 </div>
                 <div class="flex space-x-2 ml-2 p-4 border-l-2">
@@ -68,7 +77,7 @@
                 </div>
               </div>
             <% end %>
-        </div>
+          </div>
         <%= link_to "Agregar variante", new_admin_product_product_variant_path(product), class: "rounded-lg text-center text-green-700 bg-green-100 font-bold hover:bg-green-200 px-4 py-2" %>
       </div>
     <% end %>
