@@ -11,13 +11,6 @@ categories.each do |category_name|
   Category.find_or_create_by!(name: category_name)
 end
 
-# Crear categoría predeterminada si no existe
-default_category = Category.find_or_create_by!(name: "Default")
-
-# Asignar categoría predeterminada a productos sin categoría (si fuera necesario)
-puts "Actualizando productos sin categoría..."
-Product.where(category_id: nil).update_all(category_id: default_category.id)
-
 puts "Creando productos y variantes..."
 30.times do |i|
   category = Category.all.sample
