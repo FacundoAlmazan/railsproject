@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_20_011052) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_21_070843) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -76,24 +76,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_20_011052) do
   end
 
   create_table "sales", force: :cascade do |t|
-    t.datetime "sale_date"
-    t.decimal "total_price"
     t.integer "user_id", null: false
     t.string "client_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "canceled_at"
+    t.string "customer_id"
     t.index ["user_id"], name: "index_sales_on_user_id"
   end
 
   create_table "sold_products", force: :cascade do |t|
     t.integer "sale_id", null: false
-    t.integer "product_id", null: false
     t.integer "quantity"
     t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_sold_products_on_product_id"
+    t.integer "product_variant_id", null: false
+    t.index ["product_variant_id"], name: "index_sold_products_on_product_variant_id"
     t.index ["sale_id"], name: "index_sold_products_on_sale_id"
   end
 
@@ -116,6 +115,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_20_011052) do
   add_foreign_key "product_variants", "products"
   add_foreign_key "products", "categories"
   add_foreign_key "sales", "users"
-  add_foreign_key "sold_products", "products"
+  add_foreign_key "sold_products", "product_variants"
   add_foreign_key "sold_products", "sales"
 end

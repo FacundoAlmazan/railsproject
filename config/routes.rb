@@ -13,8 +13,13 @@ Rails.application.routes.draw do
         patch :change_stock, on: :member
         resources :product_variants, only: [:new, :create, :edit, :update, :destroy]
     end
+
     resources :users     # Gestión de usuarios (opcional)
-    resources :sales    # Gestión de ventas
+
+    resources :sales do  # Gestión de ventas
+      patch :cancel, on: :member
+    end
+    
     root 'dashboard#index'  # Página principal del admin
   end
 

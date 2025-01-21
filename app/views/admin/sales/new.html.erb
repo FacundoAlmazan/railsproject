@@ -1,0 +1,38 @@
+<%= form_with model: @sale, url: admin_sales_path, local: true, class: "space-y-6" do |f| %>
+  <div class="space-y-4">
+
+    <!-- ID del cliente -->
+    <%= f.label :customer_id, "DNI del Cliente", class: "block font-semibold" %>
+    <%= f.text_field :customer_id, class: "border rounded w-full px-3 py-2", maxlength: 20 %>
+
+    <!-- Productos vendidos -->
+    <%= f.fields_for :sold_products do |sp| %>
+      <div class="border p-4 space-y-2">
+        <%= sp.label :product_variant_id, "Producto (Talle y Color)", class: "block font-semibold" %>
+        <%= sp.collection_select :product_variant_id, ProductVariant.all, :id, :details, prompt: "Seleccionar", class: "border rounded w-full px-3 py-2" %>
+
+        <%= sp.label :quantity, "Cantidad", class: "block font-semibold" %>
+        <%= sp.number_field :quantity, class: "border rounded w-full px-3 py-2", min: 1 %>
+
+        <%= sp.label :price, "Precio de venta", class: "block font-semibold" %>
+        <%= sp.number_field :price, step: 0.01, class: "border rounded w-full px-3 py-2", min: 0 %>
+
+        <%= sp.check_box :_destroy %>
+        <%= sp.label :_destroy, "Eliminar" %>
+      </div>
+    <% end %>
+
+    <%= link_to "Agregar Producto", "#", id: "add-product", class: "text-blue-500 hover:underline" %>
+    <%= javascript_tag do %>
+    document.getElementById('add-product').addEventListener('click', function(e) {
+        e.preventDefault();
+        const container = document.createElement('div');
+        container.innerHTML = '<%= j render("admin/sales/sold_product_fields", f: f) %>';
+        document.querySelector('.space-y-4').appendChild(container);
+    });
+    <% end %>
+  </div>
+
+  <!-- Botón guardar -->
+  <%= f.submit "Guardar Venta", class: "bg-green-500 text-white px-4 py-2 rounded" %>
+<% end %>
