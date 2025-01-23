@@ -1,13 +1,12 @@
-<div class="border p-4 space-y-2">
+<div class="nested-fields border p-4 space-y-2">
   <%= f.label :product_variant_id, "Producto (Talle y Color)", class: "block font-semibold" %>
   <%= f.collection_select :product_variant_id, ProductVariant.all, :id, :details, prompt: "Seleccionar", class: "border rounded w-full px-3 py-2" %>
 
   <%= f.label :quantity, "Cantidad", class: "block font-semibold" %>
   <%= f.number_field :quantity, class: "border rounded w-full px-3 py-2", min: 1 %>
 
-  <%= f.label :price, "Precio", class: "block font-semibold" %>
+  <%= f.label :price, "Precio de venta", class: "block font-semibold" %>
   <%= f.number_field :price, step: 0.01, class: "border rounded w-full px-3 py-2", min: 0 %>
 
-  <%= f.check_box :_destroy %>
-  <%= f.label :_destroy, "Eliminar" %>
+  <%= link_to "Eliminar", "#", class: "text-red-500 hover:underline", data: { action: "nested-form#removeItem" } %>
 </div>

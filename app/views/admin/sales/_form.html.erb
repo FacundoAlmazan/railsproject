@@ -1,0 +1,47 @@
+<%= form_with(model: @sale, url: admin_sales_path, local: true, class: "space-y-6") do |f| %>
+  <% if sale.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+
+      <ul>
+        <% sale.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="space-y-4">
+
+    <!-- ID del cliente -->
+    <%= f.label :customer_id, "DNI del Cliente", class: "block font-semibold" %>
+    <%= f.text_field :customer_id, class: "border rounded w-full px-3 py-2", maxlength: 20 %>
+
+
+    <div class="my-4 flex flex-col" data-controller="nested-form" data-nested-form-pattern-to-replace-with-index-value="PRODUCT_INDEX">
+        <template data-nested-form-target="formTemplate">
+            <%= f.fields_for :sold_products, SoldProduct.new, child_index: "PRODUCT_INDEX" do |sp| %>
+            <%= render "admin/sales/sold_product_fields", f: sp %>
+            <% end %>
+        </template>
+
+        <!-- Lista de productos actuales -->
+        <div data-nested-form-target="itemsList">
+            <% f.fields_for :sold_products do |sp| %>
+            <%= render "admin/sales/sold_product_fields", f: sp %>
+            <% end %>
+        </div>
+
+        <!-- Botón para agregar nuevos productos -->
+        <div class="text-right mt-4">
+            <button type="button" class="btn-primary cursor-pointer btn-sm" data-action="nested-form#addItem">
+            Add product
+            </button>
+        </div>
+    </div>
+
+
+  <div class="inline">
+    <%= f.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+
+<% end %>

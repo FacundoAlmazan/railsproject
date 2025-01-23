@@ -1,8 +1,25 @@
-<p>holaaa</p>
-
-<div id="sales" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-10">
-    <p>holi</p>
+<div id="sales" class="space-y-6 my-10">
   <% @sales.each do |sale| %>
-    <%=sale.total_price%>
+    <div class="border p-4 rounded-lg shadow">
+      <!-- Detalles de la venta -->
+      <p class="font-bold text-2xl">Venta <%= sale.id %></p>
+      <br>
+      <p class="text-lg"><strong>Precio total:</strong> $<%= sale.total_price %></p>
+      <p class="text-lg"><strong>DNI del Cliente:</strong> <%= sale.customer_id %></p>
+      <p class="text-lg"><strong>ID del vendedor:</strong> <%= sale.user.id %></p>
+
+      <!-- Productos vendidos -->
+      <h4 class="mt-4 font-semibold">Productos vendidos:</h4>
+      <ul class="list-disc list-inside">
+        <% sale.sold_products.each do |sold_product| %>
+          <li class="border p-2">
+            <strong>Producto:</strong> <%= sold_product.product_variant.details2 %><br>
+            <strong>Precio unitario:</strong> $<%= sold_product.price %> <br>
+            <strong>Cantidad vendida:</strong> <%= sold_product.quantity %><br>
+
+          </li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
 </div>
