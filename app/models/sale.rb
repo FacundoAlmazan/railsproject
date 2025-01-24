@@ -16,18 +16,26 @@ class Sale < ApplicationRecord
   def save_with_stock_validation
     transaction do
       puts "Comenzando validación de stock para la venta: #{self.inspect}"
-      sold_products.each do |sold_product|
-        variant = sold_product.product_variant
+  
+      # Agrupamos las cantidades de productos vendidos por variante
+      grouped_quantities = sold_products.group_by(&:product_variant_id).transform_values do |items|
+        items.sum(&:quantity)
+      end
+  
+      grouped_quantities.each do |variant_id, total_quantity|
+        variant = ProductVariant.find(variant_id)
         puts "Validando stock para variante: #{variant.inspect}"
-        if variant.stock < sold_product.quantity
-          puts "Stock insuficiente: #{variant.stock} < #{sold_product.quantity}"
+        if variant.stock < total_quantity
+          puts "Stock insuficiente: #{variant.stock} < #{total_quantity}"
           errors.add(:base, "Stock insuficiente para el producto: #{variant.product.name} (Talle: #{variant.size}, Color: #{variant.color})")
           raise ActiveRecord::Rollback
         else
-          puts "Descontando stock: #{variant.stock} - #{sold_product.quantity}"
-          variant.decrement!(:stock, sold_product.quantity)
+          puts "Descontando stock: #{variant.stock} - #{total_quantity}"
+          variant.decrement!(:stock, total_quantity)
         end
       end
+  
+      puts "Guardando venta: #{self.inspect}"
       save!
       puts "Venta guardada exitosamente."
     end
@@ -47,7 +55,7 @@ class Sale < ApplicationRecord
     transaction do
       sold_products.each do |sold_product|
         # Devolver el stock de cada producto vendido
-        sold_product.product.increment!(:stock, sold_product.quantity)
+        sold_product.product_variant.increment!(:stock, sold_product.quantity)
       end
       update(canceled_at: Time.current)
     end
@@ -60,6 +68,10 @@ class Sale < ApplicationRecord
   # Calcula el precio total sumando los precios de los productos vendidos
   def calculate_total_price
     self.total_price = sold_products.sum { |sp| sp.price * sp.quantity }
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["id"]
   end
     
 end
