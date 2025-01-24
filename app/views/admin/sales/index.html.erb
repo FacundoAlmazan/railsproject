@@ -23,9 +23,10 @@
   <% @sales.each do |sale| %>
     <div class="border p-4 rounded-lg shadow-2xl bg-white">
       <!-- Detalles de la venta -->
-      <p class="font-bold text-2xl">Venta <%= sale.id %></p> 
-      <% if (sale.canceled?) %> <p class= "text-red-500"> Cancelada (<%=sale.canceled_at%>) </p> <%end%>
+      <p class="font-bold text-2xl">Venta <%= sale.id %> </p> 
+      <% if (sale.canceled?) %> <p class= "text-red-500"> <strong>CANCELADA</strong> (<%=sale.canceled_at%>) </p> <%end%>
       <br>
+      <p class="text-lg"><strong>Fecha: </strong><%=sale.created_at%></p>
       <p class="text-lg"><strong>Precio total:</strong> $<%= sale.total_price %></p>
       <p class="text-lg"><strong>DNI del Cliente:</strong> <%= sale.customer_id %></p>
       <p class="text-lg"><strong>ID del vendedor:</strong> <%= sale.user.id %></p>
