@@ -14,7 +14,7 @@
 
     <!-- ID del cliente -->
     <%= f.label :customer_id, "DNI del Cliente", class: "block font-semibold" %>
-    <%= f.text_field :customer_id, class: "border rounded w-full px-3 py-2", maxlength: 20 %>
+    <%= f.number_field :customer_id, class: "border rounded w-full px-3 py-2", maxlength: 10 %>
 
 
     <div class="my-4 flex flex-col" data-controller="nested-form" data-nested-form-pattern-to-replace-with-index-value="PRODUCT_INDEX">
