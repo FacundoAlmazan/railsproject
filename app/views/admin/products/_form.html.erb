@@ -64,7 +64,7 @@
         <h2 class="text-2xl pt-7 text-center ">Editar variantes</h2>
         <!-- Contenedor de variantes con scroll interno -->
           <div class="flex flex-col justify-start overflow-y-auto px-3 max-h-[63vh] my-6">
-            <% product.product_variants.each do |variant| %>
+            <% product.product_variants.active.each do |variant| %>
               <div class="flex items-center justify-between border-b pb-2 rounded-lg border-y-2 pt-2 mb-2 border-x-2 pl-4 bg-white">
                 <div class='truncate'>
                   <p class='truncate'><strong>Talle:</strong> <%= variant.size %></p>

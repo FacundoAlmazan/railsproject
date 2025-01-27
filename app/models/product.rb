@@ -18,9 +18,12 @@ class Product < ApplicationRecord
         product_variants.sum(:stock)
     end
 
-    def deactivate!
-        update(deactivated_at: Time.current)
+  def deactivate!
+    transaction do
+      product_variants.update_all(deactivated_at: Time.current) # Desactiva todas las variantes
+      update!(deactivated_at: Time.current)
     end
+  end
 
     private
 

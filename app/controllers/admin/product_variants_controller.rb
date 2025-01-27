@@ -30,11 +30,11 @@ class Admin::ProductVariantsController < Admin::DashboardController
     end
 
     def destroy
-    @product_variant.destroy
-    respond_to do |format|
-        format.html { redirect_to edit_admin_product_path(@product_variant.product), notice: "Variante eliminada correctamente." }
-        format.turbo_stream { render turbo_stream: turbo_stream.remove(@product_variant) }
-    end
+        if @product_variant.deactivate!
+            redirect_to edit_admin_product_path, notice: "Variante del producto eliminada exitosamente."
+        else
+            redirect_to edit_admin_product_path, alert: "No se pudo eliminar la variante del producto."
+        end
     end
 
     private
