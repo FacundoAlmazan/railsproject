@@ -14,7 +14,11 @@ Rails.application.routes.draw do
         resources :product_variants, only: [:new, :create, :edit, :update, :destroy]
     end
 
-    resources :users     # Gestión de usuarios (opcional)
+    resources :users do
+      member do
+        patch :deactivate
+      end
+    end
 
     resources :sales do  # Gestión de ventas
       patch :cancel, on: :member

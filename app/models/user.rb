@@ -14,6 +14,9 @@ class User < ApplicationRecord
 
   ROLES = %w[admin manager employee].freeze
 
+  validates :username, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true
+  validates :phone, presence: true
   validates :role, presence: true, inclusion: { in: ROLES }
 
   def admin?
@@ -27,7 +30,7 @@ class User < ApplicationRecord
   def employee?
     role == "employee"
   end
-
+  
   def deactivate!
     update(deactivated_at: Time.current, password: SecureRandom.hex)
   end

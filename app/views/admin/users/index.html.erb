@@ -1,0 +1,38 @@
+<h1 class="text-2xl font-bold">Gestión de Usuarios</h1>
+
+<%= link_to "Nuevo Usuario", new_admin_user_path, class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+
+<table class="table-auto w-full mt-6 text-center border-2"">
+  <thead >
+    <tr >
+      <th class="border-2">Nombre de Usuario</th>
+      <th class="border-2">Correo</th>
+      <th class="border-2">Teléfono</th>
+      <th class="border-2">Rol</th>
+      <th class="border-2">Estado</th>
+      <th class="border-2">Contraseña</th>
+      <th class="border-2">Acciones</th>
+    </tr>
+  </thead >
+  <tbody >
+    <% @users.each do |user| %>
+      <tr class="<%= user.active? ? 'bg-green-100' : 'bg-red-100' %>">
+        <td class="border-2"><%= user.username %></td>
+        <td class="border-2"><%= user.email %></td>
+        <td class="border-2"><%= user.phone %></td>
+        <td class="border-2"><%= user.role %></td>
+        <td class="border-2"><%= user.active? ? "Activo" : "Desactivado" %></td>
+        <td class="border-2"><%= user.password %></td>
+        <td class="border-2">
+          <%= link_to "Ver", admin_user_path(user), class: "text-blue-500 hover:underline" %>
+          <% if user.active? %>
+            <%= button_to "Desactivar", deactivate_admin_user_path(user),
+                 method: :patch, 
+                 data:  { turbo_confirm: "¿Estás seguro de que deseas cancelar este usuario?" }, 
+                 class: "text-red-500 hover:underline" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

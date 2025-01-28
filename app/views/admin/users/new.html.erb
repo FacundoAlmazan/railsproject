@@ -1,0 +1,35 @@
+<h1 class="text-2xl font-bold">Nuevo Usuario</h1>
+
+<%= form_with(model: @user, url: admin_users_path, local: true, class: "space-y-6") do |f| %>
+  <div>
+    <%= f.label :username, "Nombre de Usuario", class: "block font-semibold" %>
+    <%= f.text_field :username, class: "border rounded w-full px-3 py-2" %>
+  </div>
+
+  <div>
+    <%= f.label :email, "Correo Electrónico", class: "block font-semibold" %>
+    <%= f.email_field :email, class: "border rounded w-full px-3 py-2" %>
+  </div>
+
+  <div>
+    <%= f.label :phone, "Teléfono", class: "block font-semibold" %>
+    <%= f.telephone_field :phone, class: "border rounded w-full px-3 py-2" %>
+  </div>
+
+  <div>
+    <%= f.label :role, "Rol", class: "block font-semibold" %>
+    <%= f.select :role, User::ROLES, {}, class: "border rounded w-full px-3 py-2" %>
+  </div>
+
+  <div>
+    <%= f.label :password, "Contraseña", class: "block font-semibold" %>
+    <%= f.password_field :password, class: "border rounded w-full px-3 py-2" %>
+  </div>
+
+  <div>
+    <%= f.label :password_confirmation, "Confirmar Contraseña", class: "block font-semibold" %>
+    <%= f.password_field :password_confirmation, class: "border rounded w-full px-3 py-2" %>
+  </div>
+
+  <%= f.submit "Crear Usuario", class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+<% end %>
