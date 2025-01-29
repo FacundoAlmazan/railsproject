@@ -14,6 +14,7 @@ class User < ApplicationRecord
 
   ROLES = %w[admin manager employee].freeze
 
+  validates :password, presence: true, if: :password_required?
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
   validates :phone, presence: true
@@ -39,4 +40,11 @@ class User < ApplicationRecord
     deactivated_at.nil?
   end
   
+  def password_required?
+    # La contraseña es requerida si:
+    # - Es un nuevo registro (new_record?)
+    # - O el campo de password está presente (para cambios de contraseña)
+    new_record? || password.present?
+  end
+
 end

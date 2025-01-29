@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::DashboardController
-
+  load_and_authorize_resource
   before_action :set_product, only: [:edit, :update, :destroy]
 
   #def index

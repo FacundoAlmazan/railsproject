@@ -71,3 +71,5 @@ gem 'activerecord', '8.0.1'
 gem 'ransack'
 
 gem 'will_paginate', '~> 3.3.1'
+
+gem 'cancancan', '~> 3.5'

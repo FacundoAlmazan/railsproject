@@ -1,4 +1,5 @@
 class Admin::ProductVariantsController < Admin::DashboardController
+    load_and_authorize_resource
     before_action :set_product, only: [:new, :create, :edit, :update]
     before_action :set_product_variant, only: [:edit, :update, :destroy]
 
