@@ -23,11 +23,18 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="flex flex-col min-h-screen bg-sky-100">
+  <body class="flex flex-col min-h-screen bg-sky-100 ">
 
-    <header class="bg-white shadow-md">
-      <div class="container mx-auto flex items-center py-4">
-      <%= link_to image_tag('avivas.png', alt: 'AVIVAS logo', class: 'h-12 w-auto max-w-xs relative'), root_path%>
+    <header class="bg-white shadow-md border-b-4 pb-1.5 border-sky-400">
+      <div class="container mx-auto flex items-center py-4 pl-2">
+        
+        <!-- Logo alineado a la izquierda en la misma posición que el otro layout -->
+        <div class="flex items-center space-x-2">
+          <%= link_to root_path do %>
+            <%= image_tag('avivas.png', alt: 'AVIVAS logo', class: 'h-16') %>
+          <% end %>
+        </div>
+
       </div>
     </header>
 

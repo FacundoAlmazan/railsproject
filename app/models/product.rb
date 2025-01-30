@@ -15,7 +15,7 @@ class Product < ApplicationRecord
     before_save :purge_image_if_requested
 
     def stock
-        product_variants.sum(:stock)
+        product_variants.active.sum(:stock)
     end
 
   def deactivate!

@@ -10,31 +10,42 @@
     
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-
   </head>
+
   <body class="flex flex-col min-h-screen overflow-y-scroll"> 
 
-    <header class="bg-gray-800 text-white p-4 border-b-sky-400 border-b-8">
-      <div class="container mx-auto flex items-center py-4">
-        <%= link_to image_tag('avivasblue.png', alt: 'AVIVAS logo', class: 'h-12 w-auto'), admin_root_path %>
-        <h1 class="font-bold text-2xl"> Administración de Avivas</h1>
-        <div class="absolute right-10">
-          <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "font-bold text-m mr-5" %>
-        </div>
-      </div>
-    </header>
+<header class="bg-gray-800 text-white border-b-4 pb-2 border-sky-400">
+  <div class="container mx-auto flex items-center flex-wrap py-4 pl-2 gap-x-4 min-w-0">
+    
+    <!-- Logo y título alineados a la izquierda -->
+    <div class="flex items-center space-x-2 min-w-0">
+      <%= link_to admin_root_path do %>
+        <%= image_tag('avivasblue.png', alt: 'AVIVAS logo', class: 'h-12 sm:h-16') %>
+      <% end %>
+      <h1 class="font-bold text-xl sm:text-2xl truncate">Administración de Avivas®</h1>
+    </div>
 
+    <!-- Menú de usuario alineado completamente a la derecha -->
+    <div class="flex items-center space-x-2 ml-auto mr-2">
+      <%= link_to "Editar perfil", edit_admin_user_path(current_user), 
+            class: "text-center hover:text-sky-500 text-white font-medium border-2 border-sky-500 p-1 px-2 rounded-lg text-xs sm:text-sm" %>
+      <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, 
+            class: "hover:text-red-500 text-white font-medium border-2 border-red-500 p-1 rounded-lg text-xs sm:text-sm" %>
+    </div>
+
+  </div>
+</header>
+
+
+
+    <!-- Contenido -->
     <main class="container mx-auto mt-8 px-6 flex-1">
       <%= render 'shared/alerts' %>
       <%= yield %>

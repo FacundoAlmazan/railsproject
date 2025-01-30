@@ -27,14 +27,20 @@ class Admin::UsersController < Admin::DashboardController
   def edit; end
 
   def update
-    # Verificar si el usuario actual está intentando cambiar el rol a admin sin permiso
+  
+    # Si `role` no está en los params (cuando edito mi propio usuario), lo forzamos a su valor actual para que no esté vacío y no validemos sobre un campo que no llega desde el form lo cual causa problemas.
+    params[:user][:role] = @user.role unless params[:user].key?(:role)
+  
+    # Verificar si un manager intenta asignar `admin`
     if current_user.manager? && params[:user][:role] == 'admin'
       raise CanCan::AccessDenied.new
     end
-    # Verificar si el usuario actual está intentando cambiar su propio rol
+  
+    # Verificar si el usuario está intentando cambiar su propio rol
     if current_user == @user && params[:user][:role] != @user.role
       raise CanCan::AccessDenied.new
     end
+  
     if @user.update(user_params)
       if request.referer&.include?(edit_admin_user_path(current_user))
         redirect_to admin_root_path, notice: "Tu perfil se ha actualizado correctamente."
@@ -46,6 +52,7 @@ class Admin::UsersController < Admin::DashboardController
       render :edit, status: :unprocessable_entity
     end
   end
+  
 
   def deactivate
     @user.deactivate!
