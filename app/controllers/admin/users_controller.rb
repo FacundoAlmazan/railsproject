@@ -11,6 +11,10 @@ class Admin::UsersController < Admin::DashboardController
   end
 
   def create
+    # Verificar si un gerente intenta asignar el rol admin
+    if current_user.manager? && params[:user][:role] == 'admin'
+      raise CanCan::AccessDenied.new
+    end
     @user = User.new(user_params)
     if @user.save
       redirect_to admin_users_path, notice: "Usuario creado exitosamente."
@@ -25,11 +29,18 @@ class Admin::UsersController < Admin::DashboardController
   def update
     # Verificar si el usuario actual está intentando cambiar el rol a admin sin permiso
     if current_user.manager? && params[:user][:role] == 'admin'
-      raise CanCan::AccessDenied.new("No tienes permiso para asignar el rol admin.", :update, User)
+      raise CanCan::AccessDenied.new
     end
-  
+    # Verificar si el usuario actual está intentando cambiar su propio rol
+    if current_user == @user && params[:user][:role] != @user.role
+      raise CanCan::AccessDenied.new
+    end
     if @user.update(user_params)
-      redirect_to admin_users_path, notice: "Usuario actualizado exitosamente."
+      if request.referer&.include?(edit_admin_user_path(current_user))
+        redirect_to admin_root_path, notice: "Tu perfil se ha actualizado correctamente."
+      else
+        redirect_to admin_users_path, notice: "Usuario actualizado exitosamente."
+      end
     else
       flash.now[:alert] = @user.errors.full_messages.join(", ")
       render :edit, status: :unprocessable_entity
@@ -50,7 +61,7 @@ class Admin::UsersController < Admin::DashboardController
   def user_params
     permitted = [:username, :email, :phone, :password, :password_confirmation]
   
-    if can?(:update, User) && current_user != @user
+    if can?(:update, @user) && current_user != @user
       if current_user.manager?
         # Los gerentes pueden editar usuarios, pero no asignar el rol "admin"
         permitted << :role unless params[:user][:role] == 'admin'

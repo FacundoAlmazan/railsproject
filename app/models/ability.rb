@@ -34,15 +34,9 @@ class Ability
       can :manage, Sale
       can :manage, Product
       can :manage, ProductVariant
-      cannot :manage, User # Sin acceso a la gestión de usuarios
-      cannot :read, User
-
     end
 
-    # Todos los usuarios autenticados pueden leer y actualizar su propia cuenta
-    can [:read, :update], User, id: user.id
-
-    # Ningún usuario puede cambiar su propio rol
-    cannot :update, User, id: user.id, role: true
+    # Todos los usuarios autenticados pueden actualizar su propia cuenta
+    can [:update], User, id: user.id
   end
 end
