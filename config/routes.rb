@@ -40,7 +40,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
     # Storefront público
-    get "/", to: "storefront#home", as: :storefront_home
     root 'storefront#home'  # Página principal
+
+    get "storefront", to: "storefront#home", as: :storefront_home
+    get "storefront/:id", to: "storefront#show", as: :storefront_product
     resources :products, only: [:index, :show]  # Ver productos sin registro
 end
