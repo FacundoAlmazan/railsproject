@@ -1,19 +1,47 @@
-<h1 class="text-4xl mb-10 font-light">Bienvenido a nuestra tienda</h1>
 
-<%= search_form_for @q, url: storefront_home_path, method: :get, class: "mb-6 flex items-center gap-2" do |f| %>
-  <%= f.text_field :name_or_description_cont, placeholder: "Buscar por nombre o descripción...", 
-        class: "border rounded px-4 py-2 w-full mb-4" %>
-  <%= f.submit "Buscar", class: "bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded" %>
+
+<%= search_form_for @q, url: storefront_home_path, method: :get, class: "mb-6 space-y-4" do |f| %>
+
+  <!-- Filtro de categorías -->
+  <div class="flex space-x-4 overflow-x-auto py-2">
+
+    <% all_products_params = params[:q]&.to_unsafe_h&.except("category_id_eq") || {} %>
+    <%= link_to "Ver todos", storefront_home_path(q: all_products_params), 
+          class: "px-4 py-2 rounded-lg text-sm font-medium transition #{params.dig(:q, :category_id_eq).blank? ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'}" %>
+
+    <% Category.all.each do |category| %>
+      <% merged_params = params[:q]&.to_unsafe_h&.merge("category_id_eq" => category.id) || { "category_id_eq" => category.id } %>
+      <%= link_to category.name, storefront_home_path(q: merged_params), 
+            class: "px-4 py-2 rounded-lg text-sm font-medium transition #{params.dig(:q, :category_id_eq).to_i == category.id ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'}" %>
+    <% end %>
+
+  </div>
+
+  <!-- Barra de búsqueda -->
+  <div class="flex items-center gap-2">
+    <%= f.text_field :name_or_description_cont, placeholder: "Buscar por nombre o descripción...", 
+          class: "border rounded px-4 py-2 w-full mb-4", value: params.dig(:q, :name_or_description_cont) %>
+    <%= f.submit "Buscar", class: "bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 mb-4 h-11 rounded" %>
+  </div>
+
+  <!-- Checkbox para incluir productos sin stock -->
+  <div class="flex items-center gap-2">
+    <%= f.check_box :with_stock, { checked: params.dig(:q, :with_stock) == "0" }, "0", "1" %>
+    <%= f.label :with_stock, "Incluir productos sin stock", class: "text-gray-700" %>
+  </div>
+
 <% end %>
 
+<!-- Listado de productos -->
 <div id="products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
   <% @products.each do |product| %>
-    <%= link_to storefront_product_path(product), class: "block hover:shadow-lg transition p-4 border rounded-lg bg-white hover:bg-gray-100" do %>
+    <%= link_to storefront_product_path(product), class: "block hover:shadow-lg transition p-4 border rounded-lg bg-sky-100 hover:bg-sky-200" do %>
       <%= render 'shared/product', product: product %>
     <% end %>
   <% end %>
 </div>
 
+<!-- Paginación -->
 <div class="pagination">
   <%= will_paginate @products %>
 </div>

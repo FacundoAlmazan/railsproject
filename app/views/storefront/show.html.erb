@@ -1,0 +1,49 @@
+<% content_for :title, "Avivas ver producto" %>
+
+<div class="max-w-6xl mx-auto bg-white p-8 rounded-lg shadow-lg mt-10">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    
+    <!-- Imagen del producto -->
+    <div class="flex justify-center">
+      <% if @product.image.attached? %>
+        <%= image_tag @product.image, class: "w-full max-w-lg h-auto object-cover rounded-lg shadow-md" %>
+      <% else %>
+        <div class="w-full max-w-lg h-80 bg-gray-200 flex items-center justify-center rounded-lg">
+          <p class="text-gray-500">No hay imagen disponible</p>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Información del producto -->
+    <div class="flex flex-col justify-center">
+      <h1 class="text-4xl font-bold text-gray-800"><%= @product.name %></h1>
+      <p class="text-lg text-gray-600 mt-4"><%= @product.description %></p>
+      <p class="text-xl font-semibold text-blue-600 mt-6">$<%= @product.price %></p>
+
+      <!-- Variantes del producto con scroll si hay muchas -->
+      <% if @variants.any? %>
+        <h2 class="text-2xl font-semibold mt-6">Variantes:</h2>
+        <div class="mt-4 border p-4 rounded-lg shadow-md bg-gray-100 max-h-64 overflow-y-auto">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <% @variants.each do |variant| %>
+              <div class="border p-3 rounded-lg bg-white shadow-sm">
+                <p><strong>Talle:</strong> <%= variant.size %></p>
+                <p><strong>Color:</strong> <%= variant.color %></p>
+                <p><strong>Stock disponible:</strong> <%= variant.stock %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <p class="text-gray-500 mt-4">No hay variantes disponibles para este producto.</p>
+      <% end %>
+    </div>
+
+  </div>
+
+  <!-- Botón para volver a la tienda -->
+  <div class="mt-8 text-left">
+    <%= link_to "Volver a la tienda", storefront_home_path, 
+          class: "bg-blue-500 hover:bg-blue-600 text-white font-medium px-6 py-3 rounded-lg shadow-md transition" %>
+  </div>
+</div>

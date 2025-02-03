@@ -21,23 +21,23 @@
 
   <body class="flex flex-col min-h-screen overflow-y-scroll"> 
 
-<header class="bg-gray-800 text-white border-b-4 pb-2 border-sky-400">
-  <div class="container mx-auto flex items-center flex-wrap py-4 pl-2 gap-x-4 min-w-0">
+<header class="bg-sky-600 text-white border-b-4 border-sky-400">
+  <div class="container mx-auto flex items-center flex-wrap pl-2 gap-x-4 min-w-0">
     
     <!-- Logo y título alineados a la izquierda -->
     <div class="flex items-center space-x-2 min-w-0">
       <%= link_to admin_root_path do %>
-        <%= image_tag('avivasblue.png', alt: 'AVIVAS logo', class: 'inline-block h-12 sm:h-16') %>
-        <%= image_tag('admin.png', alt: 'AVIVAS logo', class: 'inline-block h-6 sm:h-6') %>
+        <%= image_tag('aviwhite.png', alt: 'AVIVAS logo', class: 'h-16 sm:h-20 md:h-24 max-h-28 w-auto inline-block') %>
+        <h1 class="inline-block text-2xl text-center">Administración de AVIVAS</h1>
       <% end %>
     </div>
 
-    <!-- Menú de usuario alineado completamente a la derecha -->
+    <!-- Menú de usuario -->
     <div class="flex items-center space-x-2 ml-auto mr-2">
       <%= link_to "Editar perfil", edit_admin_user_path(current_user), 
-            class: "text-center hover:text-sky-500 text-white font-medium border-2 border-sky-500 p-1 px-2 rounded-lg text-xs sm:text-sm" %>
+            class: "text-center hover:underline text-white font-medium p-1 px-2 rounded-lg sm:text-lg" %>
       <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, 
-            class: "hover:text-red-500 text-white font-medium border-2 border-red-500 p-1 rounded-lg text-xs sm:text-sm" %>
+            class: "hover:border-red-400 hover:underline text-white font-medium p-1 px-2 rounded-lg sm:text-lg" %>
     </div>
 
   </div>

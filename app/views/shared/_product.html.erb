@@ -10,10 +10,11 @@
   <div class="p-4">
     <p class="text-gray-800 font-semibold text-lg mb-2 truncate"><%= product.name %></p>
     <%# Mostrar los botones solo si se pasa el parámetro `admin: true` %>
-    <% if local_assigns[:admin] %>
+
       <% if product.stock > 0 %> <p class="text-green-800 font-bold text-lg mb-2 truncate">en stock (<%=product.stock%>)</p>
       <% else %> <p class="text-red-800 font-bold text-lg mb-2 truncate">sin stock </p>
       <% end %>
+      <% if local_assigns[:admin] %>
       <div class="flex space-x-2">
         <%= link_to "Editar", edit_admin_product_path(product), 
                     class: "bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded text-center flex-1" %>

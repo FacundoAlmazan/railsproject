@@ -1,12 +1,32 @@
-<% content_for :title, "Administración-Dashboard" %>
+<% content_for :title, "Admin Dashboard" %>
 
-<h1>Bienvenido al Panel de Administración</h1>
-<p>Aquí puedes gestionar productos, usuarios y ventas.</p>
+<%
+arreglo = ["Hola", "Qué bueno verte,", "Tranquilos, llegó", "Buenas,", "Te ves bien hoy,", "Buongiorno,"]
+item = arreglo.sample
+%>
 
-<nav>
-  <ul>
-    <li><%= link_to 'Productos', admin_products_path %></li>
-    <li><%= link_to 'Usuarios', admin_users_path %></li>
-    <li><%= link_to 'Ventas', admin_sales_path %></li>
-  </ul>
-</nav>
+<div class="min-h-[80vh] flex flex-col justify-center items-center bg-gradient-to-b from-sky-200 to-sky-100 shadow-md rounded-lg p-10 mx-4">
+  <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4"><%= item %> <span class="text-blue-600"><%= current_user.username %></span>!</h1>
+  <h2 class="text-2xl sm:text-3xl text-gray-700 font-light">Bienvenido/a al panel de administración</h2>
+
+  <div class="mt-10 grid grid-cols-1 sm:grid-cols-auto gap-6 w-full max-w-4xl justify-center">
+    <%= link_to admin_products_path, class: "bg-white p-6 rounded-xl shadow-lg text-center hover:shadow-2xl transition transform hover:scale-105" do %>
+      <h3 class="text-xl sm:text-2xl font-semibold text-gray-800">📦 Productos</h3>
+      <p class="text-gray-600 text-sm sm:text-base pt-2">Gestiona los productos y sus variantes</p>
+    <% end %>
+
+    <%= link_to admin_sales_path, class: "bg-white p-6 rounded-xl shadow-lg text-center hover:shadow-2xl transition transform hover:scale-105" do %>
+      <h3 class="text-xl sm:text-2xl font-semibold text-gray-800">💰 Ventas</h3>
+      <p class="text-gray-600 text-sm sm:text-base pt-2">Crea o busca reportes de ventas </p>
+    <% end %>
+
+    <% if current_user.role != "employee" %>
+      <%= link_to admin_users_path, class: "bg-white p-6 rounded-xl shadow-lg text-center hover:shadow-2xl transition transform hover:scale-105" do %>
+        <h3 class="text-xl sm:text-2xl font-semibold text-gray-800">👥 Usuarios</h3>
+        <p class="text-gray-600 text-sm sm:text-base pt-2">Gestiona los usuarios del sitio</p>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+
