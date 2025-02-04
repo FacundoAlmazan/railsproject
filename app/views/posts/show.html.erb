@@ -1,8 +1,0 @@
-<div class="bg-slate-1 shadow-2xl bg-white">
-  <%= render @post %>
-  <div class="shadow-mg ml-5 pb-5 font-semibold ">
-    <p><%= link_to "Edit this post", edit_post_path(@post), class: "bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded inline-block text-center" %></p>
-    <p class="mt-2 font-semibold"><%= button_to "Destroy this post", @post, method: :delete, class: "bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded inline-block text-center" %></p>
-  </div>
-</div>
-<p><%= link_to "Back to posts", posts_path, class: "mt-10 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded inline-block text-center" %></p>
