@@ -32,8 +32,8 @@ class Product < ApplicationRecord
         image.purge if ActiveModel::Type::Boolean.new.cast(remove_image)
     end
     
-    validates :name, presence: true, length: { maximum: 10 }
-    validates :description, presence: true
+    validates :name, presence: true, length: { minimum: 7, maximum:30 }
+    validates :description, presence: true, length: { minimum: 12, maximum:220 }
     validates :price, presence:true, numericality: { greater_than_or_equal_to: 0 }
 
     def active?

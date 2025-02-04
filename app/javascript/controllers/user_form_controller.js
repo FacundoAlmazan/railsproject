@@ -26,6 +26,11 @@ export default class extends Controller {
             this.usernameFeedbackTarget.style.color = "red";
             return false;
         }
+        if (username.length > 20) {
+            this.usernameFeedbackTarget.textContent = "No debe tener más de 20 caracteres.";
+            this.usernameFeedbackTarget.style.color = "red";
+            return false;
+        }
         return true;
     }
 

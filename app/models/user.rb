@@ -15,7 +15,7 @@ class User < ApplicationRecord
   ROLES = %w[admin manager employee].freeze
 
   validates :password, presence: true, if: :password_required?
-  validates :username, presence: true, length: {minimum: 6, maximum: 15}, uniqueness: true
+  validates :username, presence: true, length: {minimum: 6, maximum: 20}, uniqueness: true
   validates :email, presence: true, uniqueness: true
   validates :phone, length: {minimum: 8, maximum: 15}, presence: true
   validates :role, presence: true, inclusion: { in: ROLES }
