@@ -1,7 +1,7 @@
 # Clonar el repositorio
 git clone <URL_DEL_REPOSITORIO>
 
-# Pararse en el directorio con el nombre del proyecto (pruby)
+# Pararse en el directorio con el nombre del proyecto
 cd <NOMBRE_DEL_PROYECTO>
 
 # Instalar dependencias
